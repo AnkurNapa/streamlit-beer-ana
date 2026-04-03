@@ -224,8 +224,10 @@ def page_malts():
 
     # Color distribution chart
     st.markdown("### Color Distribution")
-    color_counts = pd.cut(filtered['color'], bins=10).value_counts().sort_index()
-    st.bar_chart(color_counts)
+    if not filtered.empty:
+        color_counts = pd.cut(filtered['color'], bins=10).value_counts().sort_index()
+        color_counts.index = color_counts.index.astype(str)
+        st.bar_chart(color_counts)
 
 # ==================== MALT COMBINATIONS PAGE ====================
 def page_combinations():
